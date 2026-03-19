@@ -2,7 +2,7 @@ import argparse
 import pathlib
 import os
 import time
-
+import re
 import numpy as np
 
 from general_motion_retargeting import GeneralMotionRetargeting as GMR
@@ -21,7 +21,7 @@ if __name__ == "__main__":
         help="SMPLX motion file to load.",
         type=str,
         # required=True,
-        default="/home/yanjieze/projects/g1_wbc/GMR/motion_data/ACCAD/Male1General_c3d/General_A1_-_Stand_stageii.npz",
+        default="motion_data/AMASS/ACCAD/Male1General_c3d/General_A1_-_Stand_stageii.npz",
         # default="/home/yanjieze/projects/g1_wbc/GMR/motion_data/ACCAD/Male2MartialArtsKicks_c3d/G8_-__roundhouse_left_stageii.npz"
         # default="/home/yanjieze/projects/g1_wbc/TWIST-dev/motion_data/AMASS/KIT_572_dance_chacha11_stageii.npz"
         # default="/home/yanjieze/projects/g1_wbc/GMR/motion_data/ACCAD/Male2MartialArtsPunches_c3d/E1_-__Jab_left_stageii.npz",
@@ -33,7 +33,7 @@ if __name__ == "__main__":
         choices=["unitree_g1", "unitree_g1_with_hands", "unitree_h1", "unitree_h1_2",
                  "booster_t1", "booster_t1_29dof","stanford_toddy", "fourier_n1", 
                 "engineai_pm01", "kuavo_s45", "hightorque_hi", "galaxea_r1pro", "berkeley_humanoid_lite", "booster_k1",
-                "pnd_adam_lite", "openloong", "tienkung"],
+                "pnd_adam_lite", "openloong", "tienkung","Q1"],
         default="unitree_g1",
     )
     
@@ -86,7 +86,11 @@ if __name__ == "__main__":
         src_human="smplx",
         tgt_robot=args.robot,
     )
-    
+    result = re.sub(r'^motion_data/|\.npz$', '', args.smplx_file)
+    target_save_path = f"retargeting_data/{args.robot}/{result}.pkl"
+    # print("处理结果：", target_save_path)
+    if args.save_path is None:
+        args.save_path = target_save_path
     robot_motion_viewer = RobotMotionViewer(robot_type=args.robot,
                                             motion_fps=aligned_fps,
                                             transparent_robot=0,
@@ -150,7 +154,7 @@ if __name__ == "__main__":
         import pickle
         root_pos = np.array([qpos[:3] for qpos in qpos_list])
         # save from wxyz to xyzw
-        root_rot = np.array([qpos[3:7][[1,2,3,0]] for qpos in qpos_list])
+        root_rot = np.array([qpos[3:7][[1,2,3,0]] for qpos in qpos_list]) # wxyz to xyzw
         dof_pos = np.array([qpos[7:] for qpos in qpos_list])
         local_body_pos = None
         body_names = None

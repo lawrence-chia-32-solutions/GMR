@@ -10,10 +10,16 @@ def bvh_parse(args):
     parser = BVHParser(axis_order="zxy", scale=args.scale)
     with open(args.bvh_file, "r") as f:
         bvh_text = f.read()
+    print("Parsing BVH file: ", args.bvh_file)
     rotations, positions = parser.parse(
         bvh_text, start=args.start, end=args.end, reset_to_zero=args.reset_to_zero
     )
-    offset_manager = OffsetManager(default_path="offsets.json")
+    if hasattr(args, "offsets_file") and args.offsets_file is not None:
+        print("Using offsets from: ", args.offsets_file)
+        offset_manager = OffsetManager(default_path=args.offsets_file)
+    else:   
+        print("Using default offsets")
+        offset_manager = OffsetManager(default_path="offsets.json")
     loaded_offsets = offset_manager.load_offsets()
     offsets = offset_manager.parse_to_window_format(parser.names, loaded_offsets)
     new_rotations = np.zeros_like(rotations)
@@ -26,7 +32,7 @@ def bvh_parse(args):
     _quats, _positions, _offsets, _parents = parser._MOTION_data_post_processing(
         new_rotations, positions, reset_to_zero=True
     )
-    print("MOTION_data_post_processing")
+    # print("MOTION_data_post_processing")
     anim = Anim(_quats, _positions, _offsets, _parents, parser.names)
     global_data = utils.quat_fk(anim.quats, anim.pos, anim.parents)
     return anim, global_data, parser.frame_time

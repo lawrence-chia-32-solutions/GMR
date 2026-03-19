@@ -2,33 +2,34 @@
     "robot_root_name": "pelvis_link",
     "human_root_name": "Hips",
     "ground_height": 0.0,
-    "human_height_assumption": 1.66,
+    "human_height_assumption": 1.838,
     "use_ik_match_table1": true,
     "use_ik_match_table2": true,
     "human_scale_table": {
-        "Hips": 1.05,
-        "Chest4": 1.05,
-        "LeftHip": 1.05,
-        "RightHip": 1.05,
-        "LeftKnee": 1.05,
-        "RightKnee": 1.05,
-        "LeftFootMod": 1.05,
-        "RightFootMod": 1.05,
+        "Hips": 1.02,
+        "Chest4": 0.97,
+        "LeftHip": 0.97,
+        "RightHip": 0.97,
+        "LeftKnee": 1.08,
+        "RightKnee": 1.08,
+        "LeftFootMod": 1.08,
+        "RightFootMod": 1.08,
+        
+        "LeftShoulder":0.97,
+        "RightShoulder":0.97,
+        "LeftElbow":0.97,
+        "RightElbow":0.97,
+        "RightWrist":0.97,
+        "LeftWrist":0.97,
 
-        "LeftShoulder":1.05,
-        "RightShoulder":1.05,
-        "LeftElbow":1.05,
-        "RightElbow":1.05,
-        "RightWrist":1.05,
-        "LeftWrist":1.05,
+        "Head":0.97
 
-        "Head":1.05
     },
     "ik_match_table1": {
         "pelvis_link": [
             "Hips",
-            0,
-            10,
+            100,
+            2,
             [
                 0.0,
                 0.0,
@@ -109,7 +110,7 @@
         "L_knee_link": [
             "LeftKnee",
             0,
-            10,
+            4,
             [
                 0.0,
                 0.0,
@@ -125,7 +126,7 @@
         "R_knee_link": [
             "RightKnee",
             0,
-            10,
+            4,
             [
                 0.0,
                 0.0,
@@ -144,7 +145,7 @@
             10,
             [
                 0.00,
-                0.016,
+                0.035,
                 0
             ],
             [
@@ -160,7 +161,7 @@
             10,
             [
                 0.0,
-                -0.016,
+                -0.035,
                 0.0
             ],
             [
@@ -270,8 +271,8 @@
     "ik_match_table2": {
         "pelvis_link": [
             "Hips",
-            10,
-            5,
+            50,
+            20,
             [
                 0.0,
                 0.0,
@@ -287,7 +288,7 @@
         "torso_link": [
             "Chest4",
             0,
-            0,
+            10,
             [
                 0.0,
                 0.0,
@@ -351,7 +352,7 @@
         "L_knee_link": [
             "LeftKnee",
             0,
-            5,
+            10,
             [
                 0.0,
                 0.0,
@@ -367,7 +368,7 @@
         "R_knee_link": [
             "RightKnee",
             0,
-            5,
+            10,
             [
                 0.0,
                 0.0,
@@ -386,7 +387,7 @@
             10,
             [
                 0.0,
-                0.016,
+                0.035,
                 0
             ],
             [
@@ -402,7 +403,7 @@
             10,
             [
                 0.0,
-                0.016,
+                -0.035,
                 0
             ],
             [
@@ -414,7 +415,7 @@
         ],
         "L_shoulder_yaw_link": [
             "LeftShoulder",
-            5,
+            0,
             5,
             [
                 0.0,
@@ -430,7 +431,7 @@
         ],
         "R_shoulder_yaw_link": [
             "RightShoulder",
-            5,
+            0,
             5,
             [
                 0.0,
